@@ -204,18 +204,22 @@ public class PozycjaAktualizuj extends Pozycja {
 		contentPanel.setLayout(null);
 
 		lblTytul = new JLabel("Tytuł");
+		lblTytul.setForeground(new Color(0, 0, 0));
 		lblTytul.setBounds(22, 61, 70, 15);
 		contentPanel.add(lblTytul);
 
 		lblAutor = new JLabel("Autor");
+		lblAutor.setForeground(new Color(0, 0, 0));
 		lblAutor.setBounds(22, 105, 70, 15);
 		contentPanel.add(lblAutor);
 
 		lblKategoria = new JLabel("Kategoria");
+		lblKategoria.setForeground(new Color(0, 0, 0));
 		lblKategoria.setBounds(22, 149, 82, 19);
 		contentPanel.add(lblKategoria);
 
 		comboBoxKategoria = new JComboBox(kategorie);
+		comboBoxKategoria.setForeground(new Color(0, 0, 0));
 		comboBoxKategoria.setBackground(new Color(204, 204, 204));
 		comboBoxKategoria.setBounds(136, 146, 333, 24);
 		contentPanel.add(comboBoxKategoria);
@@ -234,11 +238,13 @@ public class PozycjaAktualizuj extends Pozycja {
 		textFieldAutor.setColumns(10);
 
 		lblDodawanieNowejPozycji = new JLabel("Aktualizowanie pozycji");
+		lblDodawanieNowejPozycji.setForeground(new Color(0, 0, 0));
 		lblDodawanieNowejPozycji.setBounds(12, 12, 349, 34);
 		lblDodawanieNowejPozycji.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
 		contentPanel.add(lblDodawanieNowejPozycji);
 
 		lblLiczbaStron = new JLabel("Liczba stron");
+		lblLiczbaStron.setForeground(new Color(0, 0, 0));
 		lblLiczbaStron.setBounds(22, 190, 96, 24);
 		contentPanel.add(lblLiczbaStron);
 
@@ -251,6 +257,7 @@ public class PozycjaAktualizuj extends Pozycja {
 		contentPanel.add(spinnerLiczbaStron);
 
 		lblDataRozpoczciaCzytania = new JLabel("Data rozpoczęcia czytania");
+		lblDataRozpoczciaCzytania.setForeground(new Color(0, 0, 0));
 		lblDataRozpoczciaCzytania.setBounds(22, 239, 196, 15);
 		contentPanel.add(lblDataRozpoczciaCzytania);
 
@@ -261,6 +268,7 @@ public class PozycjaAktualizuj extends Pozycja {
 		contentPanel.add(spinner_1Dzien);
 
 		comboBoxMiesiac = new JComboBox(miesiace);
+		comboBoxMiesiac.setForeground(new Color(255, 0, 0));
 		comboBoxMiesiac.setBackground(new Color(204, 204, 204));
 		comboBoxMiesiac.setBounds(356, 237, 128, 19);
 		contentPanel.add(comboBoxMiesiac);
@@ -273,14 +281,17 @@ public class PozycjaAktualizuj extends Pozycja {
 		contentPanel.add(spinner_2Rok);
 
 		lblOpis = new JLabel("Opis");
+		lblOpis.setForeground(new Color(0, 0, 0));
 		lblOpis.setBounds(22, 353, 110, 15);
 		contentPanel.add(lblOpis);
 
 		lblWazneMysli = new JLabel("Ważne myśli");
+		lblWazneMysli.setForeground(new Color(0, 0, 0));
 		lblWazneMysli.setBounds(22, 502, 96, 15);
 		contentPanel.add(lblWazneMysli);
 
 		btnDodaj = new JButton("Dodaj");
+		btnDodaj.setForeground(new Color(0, 0, 0));
 		btnDodaj.setBackground(new Color(255, 255, 204));
 		btnDodaj.setBounds(280, 621, 117, 25);
 		btnDodaj.addActionListener(new ActionListener() {
@@ -296,10 +307,12 @@ public class PozycjaAktualizuj extends Pozycja {
 		this.lblNewLabelInfo.setText("");
 
 		lblDataZakoczeniaCzytania = new JLabel("Data zakończenia czytania");
+		lblDataZakoczeniaCzytania.setForeground(new Color(0, 0, 0));
 		lblDataZakoczeniaCzytania.setBounds(22, 290, 196, 15);
 		contentPanel.add(lblDataZakoczeniaCzytania);
 
 		comboBoxMiesiac2 = new JComboBox(miesiace);
+		comboBoxMiesiac2.setForeground(new Color(255, 0, 153));
 		comboBoxMiesiac2.setBackground(new Color(204, 204, 204));
 		comboBoxMiesiac2.setBounds(356, 285, 128, 24);
 		contentPanel.add(comboBoxMiesiac2);
@@ -353,11 +366,13 @@ public class PozycjaAktualizuj extends Pozycja {
 		contentPanel.add(slider);
 		
 		spinnerId = new JTextPane();
+		spinnerId.setEditable(false);
 		spinnerId.setText("1");
 		spinnerId.setBounds(765, 593, 50, 19);
 		contentPanel.add(spinnerId);
 		
 		btnAktualizujPozycje = new JButton("Aktualizuj pozycje");
+		btnAktualizujPozycje.setForeground(new Color(0, 0, 0));
 		btnAktualizujPozycje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(aktualizujPozycje(katalog,slider.getValue()))
@@ -388,6 +403,8 @@ public class PozycjaAktualizuj extends Pozycja {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				cancelButton = new JButton("Anuluj");
+				cancelButton.setBackground(new Color(255, 153, 102));
+				cancelButton.setForeground(new Color(0, 0, 0));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						zamknijBezZapisu();
@@ -395,6 +412,8 @@ public class PozycjaAktualizuj extends Pozycja {
 				});
 
 				btnNewButtonZamknij = new JButton("Zatwierdz i zamknij");
+				btnNewButtonZamknij.setBackground(new Color(255, 0, 51));
+				btnNewButtonZamknij.setForeground(new Color(255, 204, 0));
 				btnNewButtonZamknij.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Rodzic.katalogGlowny=zamknijZzapisem(katalog,Rodzic.katalogGlowny);
@@ -402,6 +421,7 @@ public class PozycjaAktualizuj extends Pozycja {
 				});
 				
 				JButton btnPoprzedni = new JButton("Poprzedni <-");
+				btnPoprzedni.setForeground(new Color(0, 0, 0));
 				btnPoprzedni.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						przewinZpowrotem(katalog);
@@ -412,6 +432,7 @@ public class PozycjaAktualizuj extends Pozycja {
 				buttonPane.add(btnPoprzedni);
 				
 				JButton btnNewButtonKolejny = new JButton("Kolejny ->");
+				btnNewButtonKolejny.setForeground(new Color(0, 0, 0));
 				btnNewButtonKolejny.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						przewinDalej(katalog);

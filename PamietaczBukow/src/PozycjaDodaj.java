@@ -110,18 +110,22 @@ public class PozycjaDodaj extends Pozycja {
 		contentPanel.setLayout(null);
 
 		lblTytul = new JLabel("Tytuł");
+		lblTytul.setForeground(new Color(0, 0, 0));
 		lblTytul.setBounds(22, 61, 70, 15);
 		contentPanel.add(lblTytul);
 
 		lblAutor = new JLabel("Autor");
+		lblAutor.setForeground(new Color(0, 0, 0));
 		lblAutor.setBounds(22, 105, 70, 15);
 		contentPanel.add(lblAutor);
 
 		lblKategoria = new JLabel("Kategoria");
+		lblKategoria.setForeground(new Color(0, 0, 0));
 		lblKategoria.setBounds(22, 149, 82, 19);
 		contentPanel.add(lblKategoria);
 
 		comboBoxKategoria = new JComboBox(kategorie);
+		comboBoxKategoria.setForeground(new Color(0, 0, 0));
 		comboBoxKategoria.setBackground(new Color(204, 204, 204));
 		comboBoxKategoria.setBounds(136, 146, 333, 24);
 		contentPanel.add(comboBoxKategoria);
@@ -140,12 +144,14 @@ public class PozycjaDodaj extends Pozycja {
 		textFieldAutor.setColumns(10);
 
 		lblDodawanieNowejPozycji = new JLabel("Dodawanie nowej pozycji");
+		lblDodawanieNowejPozycji.setForeground(new Color(0, 0, 0));
 		lblDodawanieNowejPozycji.setBounds(12, 12, 349, 34);
 		lblDodawanieNowejPozycji.setFont(new Font("Century Schoolbook L",
 				Font.BOLD | Font.ITALIC, 16));
 		contentPanel.add(lblDodawanieNowejPozycji);
 
 		lblLiczbaStron = new JLabel("Liczba stron");
+		lblLiczbaStron.setForeground(new Color(0, 0, 0));
 		lblLiczbaStron.setBounds(22, 190, 96, 24);
 		contentPanel.add(lblLiczbaStron);
 
@@ -158,6 +164,7 @@ public class PozycjaDodaj extends Pozycja {
 		contentPanel.add(spinnerLiczbaStron);
 
 		lblDataRozpoczciaCzytania = new JLabel("Data rozpoczęcia czytania");
+		lblDataRozpoczciaCzytania.setForeground(new Color(0, 0, 0));
 		lblDataRozpoczciaCzytania.setBounds(22, 239, 196, 15);
 		contentPanel.add(lblDataRozpoczciaCzytania);
 
@@ -168,6 +175,7 @@ public class PozycjaDodaj extends Pozycja {
 		contentPanel.add(spinner_1Dzien);
 
 		comboBoxMiesiac = new JComboBox(miesiace);
+		comboBoxMiesiac.setForeground(new Color(255, 0, 0));
 		comboBoxMiesiac.setBackground(new Color(204, 204, 204));
 		comboBoxMiesiac.setBounds(356, 237, 128, 19);
 		contentPanel.add(comboBoxMiesiac);
@@ -180,14 +188,17 @@ public class PozycjaDodaj extends Pozycja {
 		contentPanel.add(spinner_2Rok);
 
 		lblOpis = new JLabel("Opis");
+		lblOpis.setForeground(new Color(0, 0, 0));
 		lblOpis.setBounds(22, 353, 110, 15);
 		contentPanel.add(lblOpis);
 
 		lblWazneMysli = new JLabel("Ważne myśli");
+		lblWazneMysli.setForeground(new Color(0, 0, 0));
 		lblWazneMysli.setBounds(22, 502, 96, 15);
 		contentPanel.add(lblWazneMysli);
 
 		btnDodaj = new JButton("Dodaj");
+		btnDodaj.setForeground(new Color(0, 0, 0));
 		btnDodaj.setBackground(new Color(255, 255, 204));
 		btnDodaj.setBounds(280, 621, 117, 25);
 		btnDodaj.addActionListener(new ActionListener() {
@@ -203,6 +214,7 @@ public class PozycjaDodaj extends Pozycja {
 		this.lblNewLabelInfo.setText("");
 		{
 			okButton = new JButton("Stworz pozycje");
+			okButton.setForeground(new Color(0, 0, 0));
 			okButton.setBackground(new Color(255, 255, 102));
 			okButton.setBounds(709, 612, 196, 34);
 			contentPanel.add(okButton);
@@ -218,10 +230,12 @@ public class PozycjaDodaj extends Pozycja {
 		}
 
 		lblDataZakoczeniaCzytania = new JLabel("Data zakończenia czytania");
+		lblDataZakoczeniaCzytania.setForeground(new Color(0, 0, 0));
 		lblDataZakoczeniaCzytania.setBounds(22, 290, 196, 15);
 		contentPanel.add(lblDataZakoczeniaCzytania);
 
 		comboBoxMiesiac2 = new JComboBox(miesiace);
+		comboBoxMiesiac2.setForeground(new Color(255, 0, 153));
 		comboBoxMiesiac2.setBackground(new Color(204, 204, 204));
 		comboBoxMiesiac2.setBounds(356, 285, 128, 24);
 		contentPanel.add(comboBoxMiesiac2);
@@ -259,6 +273,8 @@ public class PozycjaDodaj extends Pozycja {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				cancelButton = new JButton("Anuluj");
+				cancelButton.setForeground(new Color(0, 0, 0));
+				cancelButton.setBackground(new Color(255, 153, 102));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						zamknijBezZapisu();
@@ -266,6 +282,8 @@ public class PozycjaDodaj extends Pozycja {
 				});
 
 				btnNewButtonZamknij = new JButton("Zatwierdz i zamknij");
+				btnNewButtonZamknij.setBackground(new Color(255, 0, 0));
+				btnNewButtonZamknij.setForeground(new Color(255, 204, 0));
 				btnNewButtonZamknij.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						zamknijZDodaniem(katalog,KatalogGlowny);	

@@ -18,6 +18,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.UIManager;
 
 
 public class PozycjaUsun extends Pozycja {
@@ -53,21 +54,26 @@ public class PozycjaUsun extends Pozycja {
 		contentPanel.setLayout(null);
 		{
 			lblNewLabelUsuwaniePozycji = new JLabel("Usuwanie pozycji");
+			lblNewLabelUsuwaniePozycji.setForeground(new Color(0, 0, 0));
 			lblNewLabelUsuwaniePozycji.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
 			lblNewLabelUsuwaniePozycji.setBounds(12, 12, 353, 47);
 			contentPanel.add(lblNewLabelUsuwaniePozycji);
 		}
 		
 		lblNewLabel_1Autor = new JLabel("Autor:");
+		lblNewLabel_1Autor.setForeground(new Color(0, 0, 0));
 		lblNewLabel_1Autor.setBounds(12, 83, 556, 30);
 		contentPanel.add(lblNewLabel_1Autor);
 		{
 			lblTytul = new JLabel("Tytuł:");
+			lblTytul.setForeground(new Color(0, 0, 0));
 			lblTytul.setBounds(12, 160, 556, 30);
 			contentPanel.add(lblTytul);
 		}
 		
 		btnNewButtonUsun = new JButton("Usuń pozycję");
+		btnNewButtonUsun.setBackground(new Color(128, 128, 128));
+		btnNewButtonUsun.setForeground(new Color(255, 255, 204));
 		btnNewButtonUsun.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				usunPozycje(slider.getValue(),katalog);
@@ -96,13 +102,14 @@ public class PozycjaUsun extends Pozycja {
 		contentPanel.add(lblNewLabelInfo);
 		{
 			spinnerId = new JTextPane();
-			spinnerId.setText("1");
 			spinnerId.setEditable(false);
+			spinnerId.setText("1");
 			spinnerId.setBounds(539, 226, 47, 21);
 			contentPanel.add(spinnerId);
 		}
 		{
 			lblNewLabelPozycjaNr = new JLabel("Pozycja nr.");
+			lblNewLabelPozycjaNr.setForeground(new Color(0, 0, 0));
 			lblNewLabelPozycjaNr.setBounds(423, 226, 109, 21);
 			contentPanel.add(lblNewLabelPozycjaNr);
 		}
@@ -113,6 +120,8 @@ public class PozycjaUsun extends Pozycja {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnZatwierdzZamknij = new JButton("Zatwierdź i zamknij");
+				btnZatwierdzZamknij.setForeground(new Color(255, 204, 0));
+				btnZatwierdzZamknij.setBackground(new Color(255, 0, 0));
 				btnZatwierdzZamknij.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						Rodzic.katalogGlowny=zamknijZzapisem(katalog,Rodzic.katalogGlowny);
@@ -123,6 +132,9 @@ public class PozycjaUsun extends Pozycja {
 				});
 				
 				btnUsunWszystko = new JButton("Usuń wszystko");
+				btnUsunWszystko.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 12));
+				btnUsunWszystko.setBackground(new Color(255, 0, 0));
+				btnUsunWszystko.setForeground(new Color(0, 0, 0));
 				btnUsunWszystko.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						katalog.usunWszystko();	//usuwam wszystko z katalogu
@@ -136,6 +148,7 @@ public class PozycjaUsun extends Pozycja {
 			}
 			{
 				cancelButton = new JButton("Anuluj");
+				cancelButton.setBackground(new Color(255, 153, 102));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						PozycjaUsun.this.setVisible(false);

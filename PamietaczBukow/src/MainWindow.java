@@ -1,47 +1,28 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JToolBar;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JPopupMenu;
-import javax.swing.JMenu;
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JMenuItem;
-import javax.swing.JMenuBar;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
-import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
-import javax.swing.JSpinner;
-import javax.swing.JTextPane;
-import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.JTextPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
-import java.awt.FlowLayout;
-import java.awt.TextField;
-import java.awt.List;
-import java.awt.Scrollbar;
-import java.awt.Canvas;
-import java.awt.Color;
-
-import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 public class MainWindow extends JFrame {
 
 	private JPanel contentPane;
@@ -183,7 +164,7 @@ public class MainWindow extends JFrame {
 		mnPomoc.add(mntmOProgramie);
 		
 		lblNewLabelInfo = new JLabel("");
-		lblNewLabelInfo.setForeground(new Color(105, 105, 105));
+		lblNewLabelInfo.setForeground(new Color(0, 0, 0));
 		lblNewLabelInfo.setBounds(361, 23, 503, 49);
 		contentPane.add(lblNewLabelInfo);
 		
@@ -304,6 +285,7 @@ public class MainWindow extends JFrame {
 		contentPane.add(lblPozycjaNr);
 		
 		lblNewLabelInfo2 = new JLabel("");
+		lblNewLabelInfo2.setForeground(new Color(0, 0, 0));
 		lblNewLabelInfo2.setBounds(357, 93, 488, 15);
 		contentPane.add(lblNewLabelInfo2);
 		
@@ -312,8 +294,13 @@ public class MainWindow extends JFrame {
 		btnZamknij.setBackground(new Color(0, 0, 0));
 		btnZamknij.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				zapiszKatalogDoPliku(katalogGlowny);
-				MainWindow.this.dispose();
+				if(sprawdzWczytanie(flagaWczytania)){	//jesli wczytano katalog to wyswietl okienko dajace mozliwosc wyjscia
+					OknoZamykania oknoZamykania = new OknoZamykania(MainWindow.this,katalogGlowny,plikKatalogu);
+					MainWindow.this.setVisible(false);
+					oknoZamykania.setVisible(true);
+				}
+				else
+					MainWindow.this.dispose();
 			}
 		});
 		btnZamknij.setBounds(721, 511, 117, 25);
@@ -488,18 +475,6 @@ public class MainWindow extends JFrame {
 			katalog=nowyKatalog;//bo teraz ma te stare zapisane, co dodalem wczesniej :)
 		}
 		return katalog;
-	}
-	private void zapiszKatalogDoPliku(KatalogPozycji katalog){
-		try {
-			if(katalog.iloscElementow>0)
-				plikKatalogu.zapiszKatalogPelny(katalog);
-			else if(katalog.iloscElementow==0)
-				plikKatalogu.zapiszKatalogPusty(katalog);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		MainWindow.this.setVisible(false);
-		MainWindow.this.dispose();		
 	}
 	/* Metoda odslania element MainWindow gdy dodam pozycje do katalgu, ale nie zapisalem jej jeszcze do pliku
 	 * i tym samym nie wczytalem ( a wtedy sa odslaniane ) tutaj bede oznaczal ze dodano pozycje i po zamknieciu 
