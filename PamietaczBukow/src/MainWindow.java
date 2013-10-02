@@ -148,6 +148,40 @@ public class MainWindow extends JFrame {
 		mnKatalog.setForeground(new Color(0, 0, 0));
 		menuBar.add(mnKatalog);
 		
+		JMenuItem mntmUstawienia = new JMenuItem("Ustawienia");
+		mntmUstawienia.setForeground(new Color(0, 0, 0));
+		mntmUstawienia.setBackground(new Color(255, 140, 0));
+		mntmUstawienia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Katalog ustawieniaKatalogu = new KatalogUstawienia(MainWindow.this,katalogGlowny);
+				ustawieniaKatalogu.setVisible(true);
+			}
+		});
+		mnKatalog.add(mntmUstawienia);
+		
+		JMenu mnUytkownik = new JMenu("Użytkownik");
+		mnUytkownik.setForeground(new Color(0, 0, 0));
+		menuBar.add(mnUytkownik);
+		
+		JMenuItem mntmUstawienia_1 = new JMenuItem("Ustawienia");
+		mntmUstawienia_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Uzytkownik uzytkownikUstawienia = new UzytkownikUstawienia();
+				uzytkownikUstawienia.setVisible(true);
+			}
+		});
+		mntmUstawienia_1.setForeground(new Color(0, 0, 0));
+		mntmUstawienia_1.setBackground(new Color(255, 140, 0));
+		mnUytkownik.add(mntmUstawienia_1);
+		
+		JMenuItem mntmStatystki = new JMenuItem("Statystki");
+		mntmStatystki.setForeground(new Color(0, 0, 0));
+		mntmStatystki.setBackground(new Color(255, 165, 0));
+		mnUytkownik.add(mntmStatystki);
+		
+		JMenuBar menuBar_1 = new JMenuBar();
+		mnUytkownik.add(menuBar_1);
+		
 		JMenu mnPomoc = new JMenu("Pomoc");
 		mnPomoc.setForeground(new Color(0, 0, 0));
 		menuBar.add(mnPomoc);
@@ -170,7 +204,7 @@ public class MainWindow extends JFrame {
 		
 		btnWczytajKatalog = new JButton("Wczytaj Katalog");
 		btnWczytajKatalog.setBackground(new Color(0, 0, 0));
-		btnWczytajKatalog.setForeground(new Color(240, 255, 255));
+		btnWczytajKatalog.setForeground(Color.RED);
 		btnWczytajKatalog.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				katalogGlowny=sprawdzKatalog(katalogGlowny);
