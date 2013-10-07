@@ -15,11 +15,11 @@ public class Plik {
 	public BufferedReader plik_do_odczytu; //zmienna do odczytywania z pliku
 	public BufferedWriter plik_do_zapisu; //zmienna do zapisywania w pliku
 	int iloscLinii; //ile linii zajmuje dana pozycja w pliku, potrzebne przy wczytywaniu
-	private void nowy_do_odczytu(String sciezka_pliku) throws IOException{	/*Funkcja otwiera plik do odczytu o podanej nazwie*/
+	public void nowy_do_odczytu(String sciezka_pliku) throws IOException{	/*Funkcja otwiera plik do odczytu o podanej nazwie*/
 		Path sciezka = FileSystems.getDefault().getPath(sciezka_pliku);
 		this.plik_do_odczytu = Files.newBufferedReader(sciezka, StandardCharsets.UTF_8); /*zmienna klasowa plik_odczyt do uzytku */
 	}
-	private String czytaj_linie(BufferedReader plik_odczyt) throws IOException{ /*odczytuje linie tekstu i zwraca*/
+	public String czytaj_linie(BufferedReader plik_odczyt) throws IOException{ /*odczytuje linie tekstu i zwraca*/
 		return plik_odczyt.readLine();
 	}
 	public void nowy_do_zapisu(String sciezka_pliku) throws IOException{ /*otwiera do zapisu plik o podanej nazwie*/

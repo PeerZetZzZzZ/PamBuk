@@ -41,10 +41,25 @@ public class ProfilUzytkownika {
 			plikProfiluUzytkownika.zapisz_tekst(plikProfiluUzytkownika.plik_do_zapisu, this.nazwisko);
 			plikProfiluUzytkownika.zapisz_tekst(plikProfiluUzytkownika.plik_do_zapisu, Integer.toString(this.wiek));
 			plikProfiluUzytkownika.zapisz_tekst(plikProfiluUzytkownika.plik_do_zapisu, Boolean.toString(this.plec));
+			plikProfiluUzytkownika.zamknij_plik();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public void wczytajUzytkownika(){
+		try {
+			plikProfiluUzytkownika.nowy_do_odczytu("profilUzytkownika.txt");
+			this.imie=plikProfiluUzytkownika.czytaj_linie(plikProfiluUzytkownika.plik_do_odczytu);
+			this.nazwisko=plikProfiluUzytkownika.czytaj_linie(plikProfiluUzytkownika.plik_do_odczytu);
+			this.wiek=Integer.parseInt(plikProfiluUzytkownika.czytaj_linie(plikProfiluUzytkownika.plik_do_odczytu));
+			this.plec=Boolean.parseBoolean(plikProfiluUzytkownika.czytaj_linie(plikProfiluUzytkownika.plik_do_odczytu));
+			plikProfiluUzytkownika.zamknij_plik();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 }
