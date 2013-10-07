@@ -22,7 +22,7 @@ public class Plik {
 	private String czytaj_linie(BufferedReader plik_odczyt) throws IOException{ /*odczytuje linie tekstu i zwraca*/
 		return plik_odczyt.readLine();
 	}
-	private void nowy_do_zapisu(String sciezka_pliku) throws IOException{ /*otwiera do zapisu plik o podanej nazwie*/
+	public void nowy_do_zapisu(String sciezka_pliku) throws IOException{ /*otwiera do zapisu plik o podanej nazwie*/
 		Path sciezka= FileSystems.getDefault().getPath(sciezka_pliku);
 		try{
 			this.plik_do_zapisu = Files.newBufferedWriter(sciezka,StandardCharsets.UTF_8,StandardOpenOption.TRUNCATE_EXISTING);
@@ -32,7 +32,7 @@ public class Plik {
 			this.plik_do_zapisu = Files.newBufferedWriter(sciezka,StandardCharsets.UTF_8,StandardOpenOption.CREATE_NEW);
 		}
 		}
-	private void zapisz_tekst(BufferedWriter plik_zapis, String tekst) throws IOException{ /* zapisuje podany tekst do pliku */ 
+	public void zapisz_tekst(BufferedWriter plik_zapis, String tekst) throws IOException{ /* zapisuje podany tekst do pliku */ 
 		plik_zapis.write(tekst); //zapisuje tekst i przechodze do nowej linii
 		plik_zapis.write("\n");
 	}

@@ -1,10 +1,16 @@
 package uzytkownik;
 
+import java.io.IOException;
+
+import rest.Plik;
+
 public class ProfilUzytkownika {
 	public	String imie;
 	public 	String nazwisko;
 	public	int wiek;
-	public	boolean plec;	//1 - facet, 0 - kobieta
+	public	boolean plec;	//1  facet, 0 - kobieta
+	
+	private Plik plikProfiluUzytkownika = new Plik();	//plik obslugujacy baze danych zwiazanych z uzytkownikiem
 	public static final ProfilUzytkownika INSTANCJA = new ProfilUzytkownika();
 	private ProfilUzytkownika(){
 		imie="";
@@ -29,7 +35,16 @@ public class ProfilUzytkownika {
 		this.wiek=wieK;
 	}
 	public void tworzUzytkownika(){
-		
+		try {
+			plikProfiluUzytkownika.nowy_do_zapisu("profilUzytkownika.txt");
+			plikProfiluUzytkownika.zapisz_tekst(plikProfiluUzytkownika.plik_do_zapisu, this.imie);
+			plikProfiluUzytkownika.zapisz_tekst(plikProfiluUzytkownika.plik_do_zapisu, this.nazwisko);
+			plikProfiluUzytkownika.zapisz_tekst(plikProfiluUzytkownika.plik_do_zapisu, Integer.toString(this.wiek));
+			plikProfiluUzytkownika.zapisz_tekst(plikProfiluUzytkownika.plik_do_zapisu, Boolean.toString(this.plec));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
