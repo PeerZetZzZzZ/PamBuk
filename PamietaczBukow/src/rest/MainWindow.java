@@ -78,6 +78,7 @@ public class MainWindow extends JFrame {
 				try {
 					MainWindow frame = new MainWindow();
 					frame.sprawdzUzytkownika(uzytkownik.ProfilUzytkownika.INSTANCJA);//sprawdzam czy profilUzytkownika jest wypelniony, jesli nie wlaczam kreator
+//					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

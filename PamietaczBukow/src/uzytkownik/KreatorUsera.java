@@ -11,13 +11,20 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 /* Klasa tworzy kreator modyfikacji ustawien uzytkownika, uruchamiany przy pierwszym odpaleniu programu */
 public class KreatorUsera extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	private	String imie;
+	private String nazwisko;
+	private int wiek;
+	private boolean plec;
 	private JTextField textField;
+	private JLabel lblInfo;
 
 	/**
 	 * Create the dialog.
@@ -54,6 +61,19 @@ public class KreatorUsera extends JDialog {
 		textField.setBounds(289, 181, 241, 24);
 		contentPanel.add(textField);
 		textField.setColumns(10);
+		
+		JButton btnZatwierd = new JButton("Zatwierdź");
+		btnZatwierd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+//				KreatorUsera.this.textField.ges
+			}
+		});
+		btnZatwierd.setBounds(283, 237, 117, 25);
+		contentPanel.add(btnZatwierd);
+		
+		lblInfo = new JLabel("Info");
+		lblInfo.setBounds(117, 116, 413, 15);
+		contentPanel.add(lblInfo);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -69,6 +89,20 @@ public class KreatorUsera extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+		}
+	}
+	private void zczytajDane(int identyfikatorPola){
+		if(textField.getText().equals(""))
+			KreatorUsera.this.lblInfo.setText("Pole jest puste!");
+		else{
+			if(identyfikatorPola==1)
+				imie=textField.getText();
+			else if(identyfikatorPola==2)
+				nazwisko=textField.getText();
+			else if(identyfikatorPola==3)
+				wiek=Integer.parseInt(textField.getText());
+			else if(identyfikatorPola==4)
+				plec=Boolean.parseBoolean(textField.getText());
 		}
 	}
 }
