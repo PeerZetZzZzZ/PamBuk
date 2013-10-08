@@ -7,12 +7,20 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.Color;
+
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 
 /* Klasa tworzy kreator modyfikacji ustawien uzytkownika, uruchamiany przy pierwszym odpaleniu programu */
@@ -26,10 +34,14 @@ public class KreatorUsera extends JDialog {
 	private JTextField textField;
 	private JLabel lblInfo;
 
+	private int iloscWczytanych=1;	//okresla ile elementów zostało już wczytanych i jaki element trzeba teraz wczytać
+	private JLabel lblImie;
+	private JComboBox comboBox;
 	/**
 	 * Create the dialog.
 	 */
 	public KreatorUsera() {
+
 		setAutoRequestFocus(false);
 		setBackground(Color.DARK_GRAY);
 		setBounds(100, 100, 639, 422);
@@ -51,10 +63,10 @@ public class KreatorUsera extends JDialog {
 		lblZdradCoO.setBounds(196, 57, 370, 24);
 		contentPanel.add(lblZdradCoO);
 		
-		JLabel lblImie = new JLabel("Imię");
+		lblImie = new JLabel("Imię");
 		lblImie.setForeground(new Color(255, 204, 0));
 		lblImie.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblImie.setBounds(148, 175, 93, 31);
+		lblImie.setBounds(58, 175, 183, 31);
 		contentPanel.add(lblImie);
 		
 		textField = new JTextField();
@@ -65,7 +77,10 @@ public class KreatorUsera extends JDialog {
 		JButton btnZatwierd = new JButton("Zatwierdź");
 		btnZatwierd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				KreatorUsera.this.textField.ges
+				zczytajDane();
+				textField.setText("");
+				zmienInfo();
+
 			}
 		});
 		btnZatwierd.setBounds(283, 237, 117, 25);
@@ -74,6 +89,13 @@ public class KreatorUsera extends JDialog {
 		lblInfo = new JLabel("Info");
 		lblInfo.setBounds(117, 116, 413, 15);
 		contentPanel.add(lblInfo);
+		
+		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"mężczyzna", "kobieta"}));
+		comboBox.setEditable(true);
+		comboBox.setBounds(289, 180, 152, 26);
+		contentPanel.add(comboBox);
+		KreatorUsera.this.comboBox.setVisible(false);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -86,23 +108,69 @@ public class KreatorUsera extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+					KreatorUsera.this.setVisible(false);
+					KreatorUsera.this.dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
 	}
-	private void zczytajDane(int identyfikatorPola){
+	/* Metoda wczytuje dane z lineEdit'a wczytujac dane do poszczególnych pól imie,nazwisko,wiek,plec */
+	private void zczytajDane(){
 		if(textField.getText().equals(""))
 			KreatorUsera.this.lblInfo.setText("Pole jest puste!");
 		else{
-			if(identyfikatorPola==1)
+			if(iloscWczytanych==1){
 				imie=textField.getText();
-			else if(identyfikatorPola==2)
+				iloscWczytanych++;
+			}
+			else if(iloscWczytanych==2){
 				nazwisko=textField.getText();
-			else if(identyfikatorPola==3)
+				iloscWczytanych++;
+			}
+			else if(iloscWczytanych==3){
 				wiek=Integer.parseInt(textField.getText());
-			else if(identyfikatorPola==4)
-				plec=Boolean.parseBoolean(textField.getText());
+				iloscWczytanych++;
+			}
+			else if(iloscWczytanych==4){
+//				plec=weryfikujComboBox((String) comboBox.getSelectedItem());
+				iloscWczytanych++;
+			}
 		}
+	}
+	/* Metoda zmienia pola w oknie informujace jakie dane są teraz wczytywane'
+	 * 
+	 */
+	private void zmienInfo(){
+		if(iloscWczytanych==1){
+			lblImie.setText("Imie");
+//			textField.setText("");
+			}
+		else if(iloscWczytanych==2){
+			lblImie.setText("Nazwisko");
+//			textField.setText("");
+			}
+		else if(iloscWczytanych==3){
+			lblImie.setText("Wiek");
+//			textField.setText("");
+		}
+		else if(iloscWczytanych==4){
+			lblImie.setText("Plec");
+			textField.setVisible(false);
+			comboBox.setVisible(true);
+			//			textField.setText("");
+		}
+
+	}
+	private boolean weryfikujComboBox(String nazwa){
+		if(nazwa.equals("mężczyzna"))
+			return true;
+		else if(nazwa.equals("kobieta"))
+			return false;
+	return true;
 	}
 }
