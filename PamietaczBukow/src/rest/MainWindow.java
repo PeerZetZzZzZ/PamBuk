@@ -78,7 +78,6 @@ public class MainWindow extends JFrame {
 				try {
 					MainWindow frame = new MainWindow();
 					frame.sprawdzUzytkownika(uzytkownik.ProfilUzytkownika.INSTANCJA);//sprawdzam czy profilUzytkownika jest wypelniony, jesli nie wlaczam kreator
-					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -562,7 +561,7 @@ public class MainWindow extends JFrame {
 			MainWindow.this.setVisible(true);//jesli wszystko OK to pokazuje MainWindow, jesli nie jest to wyrzuca sie wyjatek i nie pokaze
 		}
 		catch (uzytkownik.UserException e) {
-			KreatorUsera kreator = new KreatorUsera();
+			KreatorUsera kreator = new KreatorUsera(MainWindow.this);
 			kreator.setVisible(true);
 		}
 	}

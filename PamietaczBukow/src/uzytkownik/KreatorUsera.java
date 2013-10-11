@@ -24,6 +24,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
+import rest.MainWindow;
+import uzytkownik.ProfilUzytkownika;
 
 /* Klasa tworzy kreator modyfikacji ustawien uzytkownika, uruchamiany przy pierwszym odpaleniu programu */
 public class KreatorUsera extends JDialog {
@@ -42,11 +44,14 @@ public class KreatorUsera extends JDialog {
 	private JLabel lblZdradCoO;
 	private JButton btnZatwierd;
 	private JSpinner spinnerWieku;
+	private boolean flagaUruchomienia=false;//zmieni sie na true, gdy wszystkie informacje zostaną zebrane i może 
+											//byc uruchomiony program 
+	private final MainWindow Rodzic;
 	/**
 	 * Create the dialog.
 	 */
-	public KreatorUsera() {
-
+	public KreatorUsera(MainWindow rodzic) {
+		Rodzic=rodzic;
 		setAutoRequestFocus(false);
 		setBackground(Color.DARK_GRAY);
 		setBounds(100, 100, 639, 422);
@@ -75,16 +80,22 @@ public class KreatorUsera extends JDialog {
 		contentPanel.add(lblImie);
 		
 		textField = new JTextField();
-		textField.setBounds(289, 181, 241, 24);
+		textField.setBounds(340, 181, 241, 24);
 		contentPanel.add(textField);
 		textField.setColumns(10);
 		
 		btnZatwierd = new JButton("Zatwierdź");
 		btnZatwierd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				zczytajDane();
-				zmienInfo();
-
+				if(!flagaUruchomienia){
+					if(zczytajDane())	//jesli zwroci true to zmienInfo 
+					zmienInfo();
+				}
+				else{
+					Rodzic.sprawdzUzytkownika(uzytkownik.ProfilUzytkownika.INSTANCJA);//uruchamiam program jesli wszystko
+					//wczytalem i moge zamknac ten kreator
+					KreatorUsera.this.dispose();
+				}
 			}
 		});
 		btnZatwierd.setBounds(252, 238, 117, 25);
@@ -97,12 +108,12 @@ public class KreatorUsera extends JDialog {
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"mężczyzna", "kobieta"}));
 		comboBox.setEditable(true);
-		comboBox.setBounds(289, 180, 152, 26);
+		comboBox.setBounds(350, 180, 152, 26);
 		contentPanel.add(comboBox);
 		
 		spinnerWieku = new JSpinner();
 		spinnerWieku.setModel(new SpinnerNumberModel(1, 1, 150, 1));
-		spinnerWieku.setBounds(292, 183, 77, 20);
+		spinnerWieku.setBounds(348, 183, 77, 20);
 		contentPanel.add(spinnerWieku);
 		spinnerWieku.setVisible(false);
 		KreatorUsera.this.comboBox.setVisible(false);
@@ -130,9 +141,11 @@ public class KreatorUsera extends JDialog {
 		}
 	}
 	/* Metoda wczytuje dane z lineEdit'a wczytujac dane do poszczególnych pól imie,nazwisko,wiek,plec */
-	private void zczytajDane(){
-		if(textField.getText().equals(""))
+	private boolean zczytajDane(){
+		if(textField.getText().equals("")){
 			KreatorUsera.this.lblInfo.setText("Pole jest puste!");
+			return false;	//tzn ze nie mam zmienic danych
+		}
 		else{
 			switch(iloscWczytanych){
 			case 1:{
@@ -158,11 +171,14 @@ public class KreatorUsera extends JDialog {
 				textField.setVisible(false);
 				lblInfo.setVisible(false);
 				lblZdradCoO.setText("   Ok, teraz możemy zaczynać!");
+				btnZatwierd.setBounds(210, 238, 197, 25);
 				btnZatwierd.setText("Uruchom program");
+				flagaUruchomienia=true;//teraz mozna uruchomic program z parametrami uzytkownika tutaj podanego
 				iloscWczytanych=5;	//teraz juz nie zmieniInfo w metodzie zmienInfo()
 				break;
 			}
 			}
+			return true;
 		}
 	}
 	/* Metoda zmienia pola w oknie informujace jakie dane są teraz wczytywane'
@@ -170,12 +186,6 @@ public class KreatorUsera extends JDialog {
 	 */
 	private void zmienInfo(){
 		switch(iloscWczytanych){
-		case 1:{
-			lblImie.setText("Imie");
-			textField.setText("");
-			lblInfo.setText("");
-			break;
-		}
 		case 2:{
 			lblImie.setText("Nazwisko");
 			textField.setText("");
