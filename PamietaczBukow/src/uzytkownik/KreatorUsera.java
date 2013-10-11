@@ -21,6 +21,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 
 /* Klasa tworzy kreator modyfikacji ustawien uzytkownika, uruchamiany przy pierwszym odpaleniu programu */
@@ -30,13 +32,16 @@ public class KreatorUsera extends JDialog {
 	private	String imie;
 	private String nazwisko;
 	private int wiek;
-	private boolean plec;
+	private boolean plec=false;
 	private JTextField textField;
 	private JLabel lblInfo;
 
 	private int iloscWczytanych=1;	//okresla ile elementów zostało już wczytanych i jaki element trzeba teraz wczytać
 	private JLabel lblImie;
 	private JComboBox comboBox;
+	private JLabel lblZdradCoO;
+	private JButton btnZatwierd;
+	private JSpinner spinnerWieku;
 	/**
 	 * Create the dialog.
 	 */
@@ -57,10 +62,10 @@ public class KreatorUsera extends JDialog {
 		lblPamitaczbukw.setBounds(12, 12, 229, 31);
 		contentPanel.add(lblPamitaczbukw);
 		
-		JLabel lblZdradCoO = new JLabel("Zdradź coś o sobie :)");
+		lblZdradCoO = new JLabel("        Zdradź coś o sobie :)");
 		lblZdradCoO.setFont(new Font("Dialog", Font.BOLD, 20));
 		lblZdradCoO.setForeground(new Color(255, 255, 153));
-		lblZdradCoO.setBounds(196, 57, 370, 24);
+		lblZdradCoO.setBounds(117, 57, 449, 24);
 		contentPanel.add(lblZdradCoO);
 		
 		lblImie = new JLabel("Imię");
@@ -74,19 +79,18 @@ public class KreatorUsera extends JDialog {
 		contentPanel.add(textField);
 		textField.setColumns(10);
 		
-		JButton btnZatwierd = new JButton("Zatwierdź");
+		btnZatwierd = new JButton("Zatwierdź");
 		btnZatwierd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				zczytajDane();
-				textField.setText("");
 				zmienInfo();
 
 			}
 		});
-		btnZatwierd.setBounds(283, 237, 117, 25);
+		btnZatwierd.setBounds(252, 238, 117, 25);
 		contentPanel.add(btnZatwierd);
 		
-		lblInfo = new JLabel("Info");
+		lblInfo = new JLabel("");
 		lblInfo.setBounds(117, 116, 413, 15);
 		contentPanel.add(lblInfo);
 		
@@ -95,6 +99,12 @@ public class KreatorUsera extends JDialog {
 		comboBox.setEditable(true);
 		comboBox.setBounds(289, 180, 152, 26);
 		contentPanel.add(comboBox);
+		
+		spinnerWieku = new JSpinner();
+		spinnerWieku.setModel(new SpinnerNumberModel(1, 1, 150, 1));
+		spinnerWieku.setBounds(292, 183, 77, 20);
+		contentPanel.add(spinnerWieku);
+		spinnerWieku.setVisible(false);
 		KreatorUsera.this.comboBox.setVisible(false);
 		{
 			JPanel buttonPane = new JPanel();
@@ -124,53 +134,84 @@ public class KreatorUsera extends JDialog {
 		if(textField.getText().equals(""))
 			KreatorUsera.this.lblInfo.setText("Pole jest puste!");
 		else{
-			if(iloscWczytanych==1){
+			switch(iloscWczytanych){
+			case 1:{
 				imie=textField.getText();
 				iloscWczytanych++;
+				break;
 			}
-			else if(iloscWczytanych==2){
+			case 2:{
 				nazwisko=textField.getText();
 				iloscWczytanych++;
+				break;
 			}
-			else if(iloscWczytanych==3){
-				wiek=Integer.parseInt(textField.getText());
+			case 3:{
+				wiek=(int)spinnerWieku.getValue();
 				iloscWczytanych++;
+				break;
 			}
-			else if(iloscWczytanych==4){
-//				plec=weryfikujComboBox((String) comboBox.getSelectedItem());
-				iloscWczytanych++;
+			case 4:{
+				plec=weryfikujComboBox((String) comboBox.getSelectedItem());
+				zapiszUseraDoPliku();
+				lblImie.setVisible(false);	//ukrywam wszystkie niepotrzebne pola
+				comboBox.setVisible(false);
+				textField.setVisible(false);
+				lblInfo.setVisible(false);
+				lblZdradCoO.setText("   Ok, teraz możemy zaczynać!");
+				btnZatwierd.setText("Uruchom program");
+				iloscWczytanych=5;	//teraz juz nie zmieniInfo w metodzie zmienInfo()
+				break;
+			}
 			}
 		}
 	}
 	/* Metoda zmienia pola w oknie informujace jakie dane są teraz wczytywane'
-	 * 
+	 * oraz czyści pole wczytywania danych 
 	 */
 	private void zmienInfo(){
-		if(iloscWczytanych==1){
+		switch(iloscWczytanych){
+		case 1:{
 			lblImie.setText("Imie");
-//			textField.setText("");
-			}
-		else if(iloscWczytanych==2){
-			lblImie.setText("Nazwisko");
-//			textField.setText("");
-			}
-		else if(iloscWczytanych==3){
-			lblImie.setText("Wiek");
-//			textField.setText("");
+			textField.setText("");
+			lblInfo.setText("");
+			break;
 		}
-		else if(iloscWczytanych==4){
+		case 2:{
+			lblImie.setText("Nazwisko");
+			textField.setText("");
+			lblInfo.setText("");
+			break;
+		}
+		case 3:{
+			lblImie.setText("Wiek");
+			textField.setVisible(false);
+			spinnerWieku.setVisible(true);
+			lblInfo.setText("");
+			break;
+		}
+		case 4:{
+			spinnerWieku.setVisible(false);
 			lblImie.setText("Plec");
 			textField.setVisible(false);
 			comboBox.setVisible(true);
-			//			textField.setText("");
+			break;
+		}
 		}
 
 	}
+	/* Metoda na podstawie wartosci comboBox'a zwraca opowiednio true jesli wybrano mężczyzne i false jeśli kobiete 
+	 * 
+	 */
 	private boolean weryfikujComboBox(String nazwa){
 		if(nazwa.equals("mężczyzna"))
 			return true;
 		else if(nazwa.equals("kobieta"))
 			return false;
 	return true;
+	}
+	private void zapiszUseraDoPliku(){
+		ProfilUzytkownika.INSTANCJA.ustawUzytkownika(imie, nazwisko, wiek, plec);	//utawiam wartosci INSTANCJI usera
+		ProfilUzytkownika.INSTANCJA.tworzUzytkownika();//tworze plik user'a
+		lblInfo.setText("Pomyslnie dodano uzytkownika!");
 	}
 }
