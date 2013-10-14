@@ -1,4 +1,4 @@
-a
-b
-3
-false
+dupa
+Konia
+25
+true

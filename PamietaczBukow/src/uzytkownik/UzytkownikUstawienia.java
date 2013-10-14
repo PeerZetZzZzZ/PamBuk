@@ -11,6 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class UzytkownikUstawienia extends Uzytkownik{
@@ -35,8 +38,9 @@ public class UzytkownikUstawienia extends Uzytkownik{
 		contentPanel.setLayout(null);
 		
 		JLabel lblUstawieniaUytkownika = new JLabel("Ustawienia użytkownika");
+		lblUstawieniaUytkownika.setFont(new Font("DejaVu Serif", Font.BOLD | Font.ITALIC, 16));
 		lblUstawieniaUytkownika.setForeground(new Color(0, 0, 0));
-		lblUstawieniaUytkownika.setBounds(12, 12, 212, 15);
+		lblUstawieniaUytkownika.setBounds(12, 12, 280, 15);
 		contentPanel.add(lblUstawieniaUytkownika);
 		
 		JLabel lblImi = new JLabel("Imię");
@@ -79,7 +83,7 @@ public class UzytkownikUstawienia extends Uzytkownik{
 		comboBoxPlec = new JComboBox();
 		comboBoxPlec.setForeground(new Color(0, 0, 0));
 		comboBoxPlec.setModel(new DefaultComboBoxModel(new String[] {"kobieta", "mężczyzna"}));
-		comboBoxPlec.setBounds(99, 135, 90, 24);
+		comboBoxPlec.setBounds(99, 135, 153, 24);
 		contentPanel.add(comboBoxPlec);
 		{
 			JPanel buttonPane = new JPanel();
@@ -88,12 +92,23 @@ public class UzytkownikUstawienia extends Uzytkownik{
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Zapisz");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						zapiszUsera();
+					}
+				});
+				okButton.setBackground(Color.RED);
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cofnij");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+					UzytkownikUstawienia.this.dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -105,10 +120,20 @@ public class UzytkownikUstawienia extends Uzytkownik{
 		textFieldImie.setText(ProfilUzytkownika.INSTANCJA.imie);
 		textField_1Nazwisko.setText(ProfilUzytkownika.INSTANCJA.nazwisko);
 		spinnerWiek.setValue((int)ProfilUzytkownika.INSTANCJA.wiek);
-		int plec;
-		if(ProfilUzytkownika.INSTANCJA.plec==true)
+		int plec;			
+		if(ProfilUzytkownika.INSTANCJA.plec==true)//przerabiam boolean na int'a
 			plec=1;
 		else plec=0;
 		comboBoxPlec.setSelectedIndex(plec);
+	}
+	/* Funkcja zapisuje zmodyfikowanego uzytkownika, czyli zmienia odpowiednie dane INSTANCJI ProfiluUzytkownika*/
+	private void zapiszUsera(){
+		ProfilUzytkownika.INSTANCJA.imie=textFieldImie.getText();
+		ProfilUzytkownika.INSTANCJA.nazwisko=textField_1Nazwisko.getText();
+		ProfilUzytkownika.INSTANCJA.wiek=(int)spinnerWiek.getValue();
+		String plec =(String)comboBoxPlec.getSelectedItem();
+		if(plec=="mężczyzna")
+			ProfilUzytkownika.INSTANCJA.plec=true;
+		else ProfilUzytkownika.INSTANCJA.plec=false;
 	}
 }

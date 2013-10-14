@@ -557,10 +557,14 @@ public class MainWindow extends JFrame {
 	/* Metoda weryfikuje czy zostaly uzupelnione dane dotyczące użytkownika. Jeśli nie, wyświetlany jest kreator uzupelnienia danych */
 	public void sprawdzUzytkownika(ProfilUzytkownika user){
 		try{
-			user.weryfikujUzytkownika();
-			MainWindow.this.setVisible(true);//jesli wszystko OK to pokazuje MainWindow, jesli nie jest to wyrzuca sie wyjatek i nie pokaze
+			if(user.wczytajUzytkownika()){	//metoda wczytajUzytkownika wczytuje wartosci uzytownika z pliku
+				user.weryfikujUzytkownika();//sprawdzam czy są różne od domyslnych
+				MainWindow.this.setVisible(true);//jesli wszystko OK to pokazuje MainWindow, jesli nie jest to wyrzuca sie wyjatek i nie pokaze
+			}
+			else 
+				throw( new uzytkownik.UserException());
 		}
-		catch (uzytkownik.UserException e) {
+		catch (uzytkownik.UserException e) {//jesli nie to uruchamiam kreator
 			KreatorUsera kreator = new KreatorUsera(MainWindow.this);
 			kreator.setVisible(true);
 		}

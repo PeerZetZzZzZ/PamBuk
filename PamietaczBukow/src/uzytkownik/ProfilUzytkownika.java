@@ -47,7 +47,8 @@ public class ProfilUzytkownika {
 			e.printStackTrace();
 		}
 	}
-	public void wczytajUzytkownika(){
+	/* Metoda wczytuje uzytkownika z pliku */
+	public boolean wczytajUzytkownika(){
 		try {
 			plikProfiluUzytkownika.nowy_do_odczytu("profilUzytkownika.txt");
 			this.imie=plikProfiluUzytkownika.czytaj_linie(plikProfiluUzytkownika.plik_do_odczytu);
@@ -56,10 +57,9 @@ public class ProfilUzytkownika {
 			this.plec=Boolean.parseBoolean(plikProfiluUzytkownika.czytaj_linie(plikProfiluUzytkownika.plik_do_odczytu));
 			plikProfiluUzytkownika.zamknij_plik();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return false;
 		}
-		
+		return true;
 	}
 	
 }
