@@ -16,8 +16,10 @@ import javax.swing.border.EmptyBorder;
 public class UzytkownikUstawienia extends Uzytkownik{
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField textFieldImie;
+	private JTextField textField_1Nazwisko;
+	private JSpinner spinnerWiek;
+	private JComboBox comboBoxPlec;
 
 	/**
 	 * Create the dialog.
@@ -42,43 +44,43 @@ public class UzytkownikUstawienia extends Uzytkownik{
 		lblImi.setBounds(12, 39, 70, 15);
 		contentPanel.add(lblImi);
 		
-		textField = new JTextField();
-		textField.setForeground(new Color(0, 0, 0));
-		textField.setBounds(99, 39, 235, 19);
-		contentPanel.add(textField);
-		textField.setColumns(10);
+		textFieldImie = new JTextField();
+		textFieldImie.setForeground(new Color(0, 0, 0));
+		textFieldImie.setBounds(99, 39, 235, 19);
+		contentPanel.add(textFieldImie);
+		textFieldImie.setColumns(10);
 		
 		JLabel lblNazwisko = new JLabel("Nazwisko");
 		lblNazwisko.setForeground(new Color(0, 0, 0));
 		lblNazwisko.setBounds(12, 71, 84, 15);
 		contentPanel.add(lblNazwisko);
 		
-		textField_1 = new JTextField();
-		textField_1.setForeground(new Color(0, 0, 0));
-		textField_1.setBounds(99, 69, 235, 19);
-		contentPanel.add(textField_1);
-		textField_1.setColumns(10);
+		textField_1Nazwisko = new JTextField();
+		textField_1Nazwisko.setForeground(new Color(0, 0, 0));
+		textField_1Nazwisko.setBounds(99, 69, 235, 19);
+		contentPanel.add(textField_1Nazwisko);
+		textField_1Nazwisko.setColumns(10);
 		
 		JLabel lblWiek = new JLabel("Wiek");
 		lblWiek.setForeground(new Color(0, 0, 0));
 		lblWiek.setBounds(12, 102, 70, 15);
 		contentPanel.add(lblWiek);
 		
-		JSpinner spinner = new JSpinner();
-		spinner.setForeground(new Color(0, 0, 0));
-		spinner.setBounds(99, 100, 46, 20);
-		contentPanel.add(spinner);
+		spinnerWiek = new JSpinner();
+		spinnerWiek.setForeground(new Color(0, 0, 0));
+		spinnerWiek.setBounds(99, 100, 46, 20);
+		contentPanel.add(spinnerWiek);
 		
 		JLabel lblPe = new JLabel("Płeć");
 		lblPe.setForeground(new Color(0, 0, 0));
 		lblPe.setBounds(12, 140, 70, 15);
 		contentPanel.add(lblPe);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setForeground(new Color(0, 0, 0));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"kobieta", "mężczyzna"}));
-		comboBox.setBounds(99, 135, 90, 24);
-		contentPanel.add(comboBox);
+		comboBoxPlec = new JComboBox();
+		comboBoxPlec.setForeground(new Color(0, 0, 0));
+		comboBoxPlec.setModel(new DefaultComboBoxModel(new String[] {"kobieta", "mężczyzna"}));
+		comboBoxPlec.setBounds(99, 135, 90, 24);
+		contentPanel.add(comboBoxPlec);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(new Color(105, 105, 105));
@@ -96,5 +98,17 @@ public class UzytkownikUstawienia extends Uzytkownik{
 				buttonPane.add(cancelButton);
 			}
 		}
+		ladujUsera();
+	}
+	/* Metoda ustawia pola okna odpowiednimi wartościami z INSTANCJi uzytownika z klasy ProfilUzytkownika*/
+	private void ladujUsera(){
+		textFieldImie.setText(ProfilUzytkownika.INSTANCJA.imie);
+		textField_1Nazwisko.setText(ProfilUzytkownika.INSTANCJA.nazwisko);
+		spinnerWiek.setValue((int)ProfilUzytkownika.INSTANCJA.wiek);
+		int plec;
+		if(ProfilUzytkownika.INSTANCJA.plec==true)
+			plec=1;
+		else plec=0;
+		comboBoxPlec.setSelectedIndex(plec);
 	}
 }
