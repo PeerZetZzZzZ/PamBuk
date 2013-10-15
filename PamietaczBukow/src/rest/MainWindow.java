@@ -1,4 +1,5 @@
 package rest;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -38,6 +39,7 @@ import uzytkownik.KreatorUsera;
 import uzytkownik.ProfilUzytkownika;
 import uzytkownik.Uzytkownik;
 import uzytkownik.UzytkownikUstawienia;
+import uzytkownik.UzytkownikStatystyki;
 public class MainWindow extends JFrame {
 
 	private JPanel contentPane;
@@ -192,6 +194,14 @@ public class MainWindow extends JFrame {
 		mnUytkownik.add(mntmUstawienia_1);
 		
 		JMenuItem mntmStatystki = new JMenuItem("Statystki");
+		mntmStatystki.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(sprawdzWczytanie(flagaWczytania)){
+					Uzytkownik uzytkownikStatystyki = new UzytkownikStatystyki(MainWindow.this,katalogGlowny,ProfilUzytkownika.INSTANCJA);
+					uzytkownikStatystyki.setVisible(true);
+				}	
+			}
+		});
 		mntmStatystki.setForeground(new Color(0, 0, 0));
 		mntmStatystki.setBackground(new Color(255, 165, 0));
 		mnUytkownik.add(mntmStatystki);
@@ -218,7 +228,6 @@ public class MainWindow extends JFrame {
 		lblNewLabelInfo.setForeground(new Color(0, 0, 0));
 		lblNewLabelInfo.setBounds(361, 23, 503, 49);
 		contentPane.add(lblNewLabelInfo);
-		
 		btnWczytajKatalog = new JButton("Wczytaj Katalog");
 		btnWczytajKatalog.setBackground(new Color(0, 0, 0));
 		btnWczytajKatalog.setForeground(Color.RED);
@@ -468,9 +477,9 @@ public class MainWindow extends JFrame {
 		
 	}
 	/* Metoda korzysta z zewnetrznej biblioteki Joda. Najpierw tworze pierwsza date, potem druga.
-	 * Nastepnie licze liczbe dni pomiedzy i zwracam 
+	 * Nastepnie licze liczbe dni pomiedzy i zwracam. Publiczna, bo korzystam w UzytkownikStatystyki 
 	 */
-	private int wyznaczDate(KatalogPozycji katalog,int index){
+	public int wyznaczDate(KatalogPozycji katalog,int index){
 		LocalDate dataRozpoczecia = new LocalDate(katalog.listaPozycji.get(index).rokRozpoczecia,katalog.listaPozycji.get(index).miesiacRozpoczecia,katalog.listaPozycji.get(index).dzienRozpoczecia);
 		LocalDate dataZakonczenia = new LocalDate(katalog.listaPozycji.get(index).rokZakonczenia,katalog.listaPozycji.get(index).miesiacZakonczenia,katalog.listaPozycji.get(index).dzienZakonczenia);
 		Days dni = Days.daysBetween(dataRozpoczecia,dataZakonczenia);

@@ -14,6 +14,7 @@ public class KatalogPozycji {
 		listaPozycji.remove(nrPozycji);
 		iloscElementow--;
 	}
+	//get'er
 	public EgzemplarzPozycji zczytajPozycje(int nr_pozycji){
 		return listaPozycji.get(nr_pozycji);
 	}
