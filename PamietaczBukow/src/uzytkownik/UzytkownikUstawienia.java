@@ -49,6 +49,7 @@ public class UzytkownikUstawienia extends Uzytkownik{
 		contentPanel.add(lblImi);
 		
 		textFieldImie = new JTextField();
+		textFieldImie.setBackground(Color.LIGHT_GRAY);
 		textFieldImie.setForeground(new Color(0, 0, 0));
 		textFieldImie.setBounds(99, 39, 235, 19);
 		contentPanel.add(textFieldImie);
@@ -60,6 +61,7 @@ public class UzytkownikUstawienia extends Uzytkownik{
 		contentPanel.add(lblNazwisko);
 		
 		textField_1Nazwisko = new JTextField();
+		textField_1Nazwisko.setBackground(Color.LIGHT_GRAY);
 		textField_1Nazwisko.setForeground(new Color(0, 0, 0));
 		textField_1Nazwisko.setBounds(99, 69, 235, 19);
 		contentPanel.add(textField_1Nazwisko);
@@ -95,6 +97,7 @@ public class UzytkownikUstawienia extends Uzytkownik{
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						zapiszUsera();
+						UzytkownikUstawienia.this.dispose();
 					}
 				});
 				okButton.setBackground(Color.RED);

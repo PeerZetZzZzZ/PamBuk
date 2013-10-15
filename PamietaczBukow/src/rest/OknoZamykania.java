@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import uzytkownik.ProfilUzytkownika;
 import katalog.KatalogPozycji;
 
 
@@ -22,10 +23,12 @@ public class OknoZamykania extends JDialog {
 	KatalogPozycji katalogPozycji; //wskazuje na katalogPozycji z glownego okna
 	Plik plikKatalogu; //wskazuje na plikKatalogu z glownego okna
 	MainWindow Rodzic;//referencja na rodzica :D
+	ProfilUzytkownika profilUzytkownika;
 	/**
 	 * Create the dialog.
 	 */
-	public OknoZamykania(MainWindow rodziC,KatalogPozycji kataloG, Plik plikKatalogU) {
+	public OknoZamykania(MainWindow rodziC,KatalogPozycji kataloG, Plik plikKatalogU,ProfilUzytkownika profiL) {
+		profilUzytkownika=profiL;
 		katalogPozycji = kataloG;
 		plikKatalogu = plikKatalogU;
 		Rodzic=rodziC;
@@ -122,6 +125,7 @@ public class OknoZamykania extends JDialog {
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						zapiszKatalogDoPliku(katalogPozycji,plikKatalogu);
+						zapiszProfilUzytkownikaDoPliku(ProfilUzytkownika.INSTANCJA);
 						Rodzic.dispose();//zamykam rodzica i nasze okienko
 						OknoZamykania.this.dispose();
 					}
@@ -133,6 +137,9 @@ public class OknoZamykania extends JDialog {
 			}
 		}
 	}
+	/*Metoda zapisuje dane usera do pliku wg tego jak zostały zmienione w ustwieniach
+	 * 	
+	 */
 	private void zapiszKatalogDoPliku(KatalogPozycji katalog,Plik plikKatalogU){
 		try {
 			if(katalog.iloscElementow>0)
@@ -142,5 +149,8 @@ public class OknoZamykania extends JDialog {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	private void zapiszProfilUzytkownikaDoPliku(ProfilUzytkownika profil){
+		profil.tworzUzytkownika();
 	}
 }

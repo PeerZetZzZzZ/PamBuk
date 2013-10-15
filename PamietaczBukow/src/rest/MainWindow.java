@@ -181,8 +181,10 @@ public class MainWindow extends JFrame {
 		JMenuItem mntmUstawienia_1 = new JMenuItem("Ustawienia");
 		mntmUstawienia_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Uzytkownik uzytkownikUstawienia = new UzytkownikUstawienia();
-				uzytkownikUstawienia.setVisible(true);
+				if(sprawdzWczytanie(flagaWczytania)){
+					Uzytkownik uzytkownikUstawienia = new UzytkownikUstawienia();
+					uzytkownikUstawienia.setVisible(true);
+				}
 			}
 		});
 		mntmUstawienia_1.setForeground(new Color(0, 0, 0));
@@ -343,8 +345,8 @@ public class MainWindow extends JFrame {
 		btnZamknij.setBackground(new Color(0, 0, 0));
 		btnZamknij.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(sprawdzWczytanie(flagaWczytania)){	//jesli wczytano katalog to wyswietl okienko dajace mozliwosc wyjscia
-					OknoZamykania oknoZamykania = new OknoZamykania(MainWindow.this,katalogGlowny,plikKatalogu);
+				if(sprawdzWczytanie(flagaWczytania)){	//jesli wczytano katalog to wyswietl okienko dajace mozliwosc wyjscia i mozna zapisac wsio
+					OknoZamykania oknoZamykania = new OknoZamykania(MainWindow.this,katalogGlowny,plikKatalogu,ProfilUzytkownika.INSTANCJA);
 					MainWindow.this.setVisible(false);
 					oknoZamykania.setVisible(true);
 				}
